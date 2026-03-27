@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WP WhatsApp CRM - Browser Test</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background-color: #f4f4f4;
+            height: 2000px; /* Force scroll */
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; }
+        p { color: #666; line-height: 1.6; }
+        .test-status {
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            background: #eef;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>WP WhatsApp CRM - UI Test</h1>
+    <p>This page is a mock environment to test the floating WhatsApp button aesthetics and its JavaScript logic.</p>
+    
+    <div class="test-status" id="test-log">
+        <strong>Test Status:</strong> Waiting for button click...
+    </div>
+
+    <div style="margin-top: 500px;">
+        <p>Scroll down to see the button fixed at the bottom right.</p>
+    </div>
+</div>
+
+<!-- Mock Footer HTML -->
+<div id="wwc-floating-button">
+    <a href="#" id="wwc-whatsapp-link">
+        <img src="assets/images/whatsapp-icon.png" alt="WhatsApp">
+        <span>Chat with us</span>
+    </a>
+</div>
+
+<!-- Mock Localized Script -->
+<script>
+    var wwc_ajax = {
+        'ajax_url': 'mock-ajax-endpoint',
+        'nonce': 'mock-nonce',
+        'phone': '1234567890',
+        'message': 'Hello from the test page!',
+        'error_msg': 'Error tracking lead. Redirecting...'
+    };
+
+    // Override jQuery AJAX to log the call for testing
+    (function($) {
+        var originalAjax = $.ajax;
+        $.ajax = function(settings) {
+            $('#test-log').html('<strong>AJAX Intercepted:</strong> Tracking lead for phone ' + settings.data.phone + ' on page ' + settings.data.page);
+            console.log('AJAX intercepted:', settings);
+            
+            // Wait 1 second then trigger complete (as our script does)
+            setTimeout(function() {
+                if (settings.complete) settings.complete();
+            }, 1000);
+            
+            return { abort: function(){} }; // Return mock jqXHR
+        };
+    })(jQuery);
+</script>
+
+<!-- Load Plugin JS -->
+<script src="assets/js/script.js"></script>
+
+<script>
+    // Prevent redirect for testing so we can see the AJAX log
+    jQuery('#wwc-floating-button').off('click'); // Remove original
+    jQuery('#wwc-floating-button').on('click', function(e) {
+        e.preventDefault();
+        
+        const phone = wwc_ajax.phone;
+        const currentPage = window.location.href;
+
+        $('#test-log').html('<strong>Tracking Lead...</strong>');
+
+        $.ajax({
+            url: wwc_ajax.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'wwc_track_lead',
+                nonce: wwc_ajax.nonce,
+                phone: phone,
+                page: currentPage
+            },
+            complete: function() {
+                $('#test-log').append('<br><strong>Success:</strong> Lead tracked! (Simulating redirect to WhatsApp now).');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

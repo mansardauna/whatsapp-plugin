@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WP WhatsApp CRM - Admin Mock Test</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; background: #f0f0f1; margin: 0; display: flex; }
+        #admin-sidebar { width: 160px; background: #1d2327; color: #fff; min-height: 100vh; padding-top: 20px; }
+        #admin-sidebar ul { list-style: none; padding: 0; margin: 0; }
+        #admin-sidebar li { padding: 10px 15px; font-size: 14px; cursor: pointer; border-left: 4px solid transparent; }
+        #admin-sidebar li:hover { background: #2c3338; color: #72aee6; }
+        #admin-sidebar li.active { background: #2c3338; border-color: #2271b1; color: #fff; }
+        #admin-content { flex: 1; padding: 20px 40px; }
+        .wrap { max-width: 1200px; }
+        h1 { font-size: 23px; font-weight: 400; margin: 0 0 20px; }
+        .welcome-panel { background: #fff; border: 1px solid #c3c4c7; box-shadow: 0 1px 1px rgba(0,0,0,0.04); padding: 20px; margin-bottom: 20px; border-radius: 4px; }
+        .welcome-panel h2 { margin-top: 0; font-size: 21px; font-weight: 400; }
+        .button { display: inline-block; text-decoration: none; font-size: 13px; line-height: 2.15; height: auto; margin: 0; padding: 0 10px; cursor: pointer; border-width: 1px; border-style: solid; border-radius: 3px; white-space: nowrap; box-sizing: border-box; }
+        .button-primary { background: #2271b1; border-color: #2271b1; color: #fff; }
+        .button-primary:hover { background: #135e96; border-color: #135e96; }
+        .button-hero { font-size: 14px; padding: 8px 20px; height: auto; }
+        table.widefat { width: 100%; border-spacing: 0; border: 1px solid #c3c4c7; background: #fff; box-shadow: 0 1px 1px rgba(0,0,0,0.04); }
+        table.widefat th, table.widefat td { padding: 8px 10px; text-align: left; line-height: 1.5; border-bottom: 1px solid #f0f0f1; font-size: 13px; }
+        table.widefat thead th { border-bottom: 2px solid #dcdcde; background: #fdfdfd; font-weight: 600; }
+        .welcome-panel-column-container { display: flex; gap: 40px; margin-top: 20px; }
+        .welcome-panel-column { flex: 1; }
+        form table th { width: 200px; padding: 20px 10px 20px 0; font-weight: 600; font-size: 14px; }
+        form table td { padding: 15px 10px; }
+        input[type="text"], textarea { width: 100%; max-width: 400px; padding: 5px; border: 1px solid #8c8f94; border-radius: 3px; }
+        .description { color: #646970; font-size: 13px; font-style: italic; margin-top: 4px; }
+        #page-leads { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="admin-sidebar">
+    <ul>
+        <li>Dashboard</li>
+        <li>Posts</li>
+        <li>Media</li>
+        <li>Pages</li>
+        <li class="active" onclick="showPage('settings')">WhatsApp CRM</li>
+        <li style="padding-left: 30px;" onclick="showPage('leads')">Leads Dashboard</li>
+        <li>Settings</li>
+    </ul>
+</div>
+
+<div id="admin-content">
+    <!-- Settings Page Mock -->
+    <div id="page-settings" class="wrap">
+        <h1>WP WhatsApp CRM Settings</h1>
+        
+        <div class="welcome-panel" style="background-color: #f0f0f1; border: 1px solid #dcdcde; margin-bottom: 20px;">
+            <div class="welcome-panel-content">
+                <h2>🚀 Upgrade to Pro for Automation</h2>
+                <p>Take your WhatsApp CRM to the level with Cloud API integration, auto-replies, lead tagging, and advanced analytics.</p>
+                <a href="#" class="button button-primary" style="background-color: #25D366; border-color: #128C7E; font-weight: bold; padding: 10px 20px;">Go Pro - Join Waitlist</a>
+            </div>
+        </div>
+
+        <form>
+            <table class="form-table">
+                <tr>
+                    <th>WhatsApp Phone Number</th>
+                    <td>
+                        <input type="text" value="1234567890" placeholder="+1234567890">
+                        <p class="description">Enter your WhatsApp phone number with country code (no + or spaces).</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Default Message</th>
+                    <td>
+                        <textarea rows="3">Hello from your website!</textarea>
+                        <p class="description">The default message that will be pre-filled in WhatsApp.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Button Text</th>
+                    <td>
+                        <input type="text" value="Chat with us">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Enable Floating Button</th>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <p><button type="button" class="button button-primary">Save Changes</button></p>
+        </form>
+    </div>
+
+    <!-- Leads Dashboard Mock -->
+    <div id="page-leads" class="wrap">
+        <h1>Leads Dashboard</h1>
+        
+        <div class="welcome-panel">
+            <div class="welcome-panel-content">
+                <h2>Current Configuration</h2>
+                <p class="about-description">Below is your current WhatsApp configuration. Clicks on the floating button are tracked in the table below.</p>
+                <div class="welcome-panel-column-container">
+                    <div class="welcome-panel-column">
+                        <h3>WhatsApp Phone</h3>
+                        <p><strong>1234567890</strong></p>
+                    </div>
+                    <div class="welcome-panel-column">
+                        <h3>Default Message</h3>
+                        <p><em>Hello from your website!</em></p>
+                    </div>
+                    <div class="welcome-panel-column">
+                        <h3>Quick Actions</h3>
+                        <a class="button button-primary" href="#" onclick="showPage('settings')">Edit Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 10px; display: flex; justify-content: space-between;">
+            <div>
+                <select><option>Bulk Actions</option><option>Delete</option></select>
+                <button class="button">Apply</button>
+            </div>
+            <button class="button button-secondary">Export to CSV</button>
+        </div>
+
+        <table class="widefat fixed striped">
+            <thead>
+                <tr>
+                    <th style="width: 30px;"><input type="checkbox"></th>
+                    <th>ID</th>
+                    <th>Phone</th>
+                    <th>Page URL</th>
+                    <th>User IP</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>1</td>
+                    <td>1234567890</td>
+                    <td><a href="#">https://example.com/product-a</a></td>
+                    <td>192.168.1.1</td>
+                    <td>2026-03-27 10:30:15</td>
+                    <td><button class="button" style="color: #d63638; border-color: #d63638;">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>2</td>
+                    <td>1234567890</td>
+                    <td><a href="#">https://example.com/contact-us</a></td>
+                    <td>45.76.22.10</td>
+                    <td>2026-03-27 11:45:10</td>
+                    <td><button class="button" style="color: #d63638; border-color: #d63638;">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function showPage(page) {
+        document.getElementById('page-settings').style.display = (page === 'settings') ? 'block' : 'none';
+        document.getElementById('page-leads').style.display = (page === 'leads') ? 'block' : 'none';
+        
+        const menuItems = document.querySelectorAll('#admin-sidebar li');
+        menuItems[4].className = (page === 'settings') ? 'active' : '';
+        menuItems[5].className = (page === 'leads') ? 'active' : '';
+    }
+</script>
+
+</body>
+</html>
